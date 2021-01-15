@@ -325,12 +325,12 @@ output "natgw_ids" {
 
 output "igw_id" {
   description = "The ID of the Internet Gateway"
-  value       = concat(aws_internet_gateway.this.*.id, [""])[0]
+  value       = concat(aws_internet_gateway.igw.*.id, [""])[0]
 }
 
 output "igw_arn" {
   description = "The ARN of the Internet Gateway"
-  value       = concat(aws_internet_gateway.this.*.arn, [""])[0]
+  value       = concat(aws_internet_gateway.igw.*.arn, [""])[0]
 }
 
 output "egress_only_internet_gateway_id" {

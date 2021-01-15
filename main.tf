@@ -132,7 +132,7 @@ resource "aws_vpc_dhcp_options_association" "this" {
 ###################
 # Internet Gateway
 ###################
-resource "aws_internet_gateway" "this" {
+resource "aws_internet_gateway" "igw" {
   count = var.create_vpc && var.create_igw && length(var.public_subnets) > 0 ? 1 : 0
 
   vpc_id = local.vpc_id
@@ -182,7 +182,7 @@ resource "aws_route" "public_internet_gateway" {
 
   route_table_id         = aws_route_table.public[0].id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.this[0].id
+  gateway_id             = aws_internet_gateway.igw[0].id
 
   timeouts {
     create = "5m"
@@ -194,7 +194,7 @@ resource "aws_route" "public_internet_gateway_ipv6" {
 
   route_table_id              = aws_route_table.public[0].id
   destination_ipv6_cidr_block = "::/0"
-  gateway_id                  = aws_internet_gateway.this[0].id
+  gateway_id                  = aws_internet_gateway.igw[0].id
 }
 
 #################
@@ -241,7 +241,7 @@ resource "aws_route" "database_internet_gateway" {
 
   route_table_id         = aws_route_table.database[0].id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.this[0].id
+  gateway_id             = aws_internet_gateway.igw[0].id
 
   timeouts {
     create = "5m"
@@ -913,7 +913,7 @@ resource "aws_network_acl_rule" "elasticache_outbound" {
 #
 # The logical expression would be
 #
-#    nat_gateway_ips = var.reuse_nat_ips ? var.external_nat_ip_ids : aws_eip.nat.*.id
+#   nat_gateway_ips = var.reuse_nat_ips ? var.external_nat_ip_ids : aws_eip.nat.*.id
 #
 # but then when count of aws_eip.nat.*.id is zero, this would throw a resource not found error on aws_eip.nat.*.id.
 locals {
@@ -965,7 +965,7 @@ resource "aws_nat_gateway" "this" {
     var.nat_gateway_tags,
   )
 
-  depends_on = [aws_internet_gateway.this]
+  depends_on = [aws_internet_gateway.igw]
 }
 
 resource "aws_route" "private_nat_gateway" {

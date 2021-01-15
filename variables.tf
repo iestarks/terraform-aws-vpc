@@ -7,13 +7,13 @@ variable "create_vpc" {
 variable "name" {
   description = "Name to be used on all the resources as identifier"
   type        = string
-  default     = ""
+  default     = "bankus_east-2-vpc"
 }
 
 variable "cidr" {
   description = "The CIDR block for the VPC. Default value is a valid CIDR, but not acceptable by AWS and should be overridden"
   type        = string
-  default     = "0.0.0.0/0"
+  default     = "10.60.0.0/16"
 }
 
 variable "enable_ipv6" {
@@ -151,19 +151,19 @@ variable "elasticache_subnet_suffix" {
 variable "public_subnets" {
   description = "A list of public subnets inside the VPC"
   type        = list(string)
-  default     = []
+  default     = ["10.60.0.0/24"]
 }
 
 variable "private_subnets" {
   description = "A list of private subnets inside the VPC"
   type        = list(string)
-  default     = []
+  default     = ["10.60.1.0/24","10.60.3.0/24"]
 }
 
 variable "database_subnets" {
   description = "A list of database subnets"
   type        = list(string)
-  default     = []
+  default     = ["10.60.2.0/24","10.60.4.0/24"]
 }
 
 variable "redshift_subnets" {
@@ -187,7 +187,7 @@ variable "intra_subnets" {
 variable "create_database_subnet_route_table" {
   description = "Controls if separate route table for database should be created"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "create_redshift_subnet_route_table" {
@@ -229,7 +229,7 @@ variable "create_redshift_subnet_group" {
 variable "create_database_internet_gateway_route" {
   description = "Controls if an internet gateway route for public database access should be created"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "create_database_nat_gateway_route" {
@@ -241,13 +241,13 @@ variable "create_database_nat_gateway_route" {
 variable "azs" {
   description = "A list of availability zones names or ids in the region"
   type        = list(string)
-  default     = []
+  default     = ["us-east-1a","us-east-1c"]
 }
 
 variable "enable_dns_hostnames" {
   description = "Should be true to enable DNS hostnames in the VPC"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "enable_dns_support" {
@@ -271,7 +271,7 @@ variable "enable_classiclink_dns_support" {
 variable "enable_nat_gateway" {
   description = "Should be true if you want to provision NAT Gateways for each of your private networks"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "single_nat_gateway" {
@@ -1964,7 +1964,7 @@ variable "public_subnet_tags" {
 variable "private_subnet_tags" {
   description = "Additional tags for the private subnets"
   type        = map(string)
-  default     = {}
+  default     = {"10.60.1.0/24"="az1-pri-subnet-1","10.60.3.0/24"="az2-pri-subnet-3"}
 }
 
 variable "public_route_table_tags" {

@@ -2489,6 +2489,8 @@ variable "manage_default_security_group" {
   default     = false
 }
 
+
+
 variable "default_security_group_name" {
   description = "Name to be used on the default security group"
   type        = string

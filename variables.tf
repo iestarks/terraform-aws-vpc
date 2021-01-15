@@ -2243,6 +2243,22 @@ variable "elasticache_dedicated_network_acl" {
   default     = false
 }
 
+variable "ingress_rules" {
+    type = list(object({
+      from_port   = number
+      to_port     = number
+      protocol    = string
+      cidr_blocks  = string
+      description = string
+    }))
+}
+
+variable "elbsgname" {
+  description = "ELB Security Group Name"
+  type        = string
+  default = "http-80-sg"
+}
+
 variable "default_network_acl_ingress" {
   description = "List of maps of ingress rules to set on the Default Network ACL"
   type        = list(map(string))

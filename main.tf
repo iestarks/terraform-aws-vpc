@@ -97,6 +97,19 @@ resource "aws_default_security_group" "this" {
     var.default_security_group_tags,
   )
 }
+#####################################################################################
+####  Build the ELB Security Group
+###
+#####################################################################################
+
+module "elb_security_group" {
+  source  = "../terraform-aws-security-group/modules/http-80/"
+  vpc_id = aws_vpc.this[0].id
+  name = var.elbsgname
+  ingress_rules = var.ingress_rules
+}
+
+
 
 ###################
 # DHCP Options Set

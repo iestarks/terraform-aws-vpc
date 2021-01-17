@@ -10,6 +10,13 @@ variable "name" {
   default     = "bankus_east-1-vpc"
 }
 
+variable "dfname" {
+  description = "Name to be used on all the resources as identifier"
+  type        = string
+  default     = "bankus_default"
+}
+
+
 variable "dbname" {
   description = "DB name to be used on all the resources as identifier"
   type        = string

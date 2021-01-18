@@ -18,6 +18,12 @@ variable "dbname" {
   default     = "usbank-mysql"
 }
 
+variable "appname" {
+  description = "App server name to be used on all the resources as identifier"
+  type        = string
+  default     = "usbank-appserv"
+}
+
 
 variable "cidr" {
   description = "The CIDR block for the VPC. Default value is a valid CIDR, but not acceptable by AWS and should be overridden"
@@ -2277,6 +2283,25 @@ variable "elb_ingress_rules" {
     },
   ]
 }
+
+
+
+variable "appserv_ingress_rules" {
+  description = "app ingress rules"
+  type        = list(map(string))
+
+  default = [
+    {
+      rule_number = 20
+      rule_action = "allow"
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+      cidr_block  = "10.60.0.0/16"
+    },
+  ]
+}
+
 
 
 variable "mysql_ingress_rules" {

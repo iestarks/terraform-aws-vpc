@@ -4,6 +4,9 @@ variable "create_vpc" {
   default     = true
 }
 
+
+
+
 variable "name" {
   description = "Name to be used on all the resources as identifier"
   type        = string
@@ -2625,17 +2628,23 @@ variable "flow_log_traffic_type" {
   default     = "ALL"
 }
 
-variable "flow_log_destination_type" {
-  description = "Type of flow log destination. Can be s3 or cloud-watch-logs."
+variable "aws_flow_logs" {
+  description = "Can be s3 or cloud-watch-logs."
   type        = string
-  default     = "cloud-watch-logs"
+  default     = "aws_flow_logs"
 }
 
-variable "flow_log_log_format" {
-  description = "The fields to include in the flow log record, in the order in which they should appear."
-  type        = string
-  default     = null
-}
+#   variable "vpc_flow_log_destination_type" {
+#   description = "Type of flow log destination. Can be s3 or cloud-watch-logs."
+#   type        = string
+#   default     = "cloud-watch-logs"
+# }
+
+
+# variable "vpc_id" {
+#   description = "The VPC ID"
+#   type        = string
+# }
 
 variable "flow_log_destination_arn" {
   description = "The ARN of the CloudWatch log group or S3 bucket where VPC Flow Logs will be pushed. If this ARN is a S3 bucket the appropriate permissions need to be set on that bucket's policy. When create_flow_log_cloudwatch_log_group is set to false this argument must be provided."

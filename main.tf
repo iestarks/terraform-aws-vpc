@@ -101,19 +101,20 @@ resource "aws_default_security_group" "this" {
 ###
 #####################################################################################
 
-module "elb_security_group" {
-  source  = "../terraform-aws-security-group/modules/http-80/"
-  vpc_id = aws_vpc.usbank_vpc[0].id
-  name = var.elbsgname
- # ingress_rules = var.elb_ingress_rules
-}
+# module "elb_security_group" {
+#   source  = "../terraform-aws-security-group/modules/http-80/"
+#  vpc_id = var.data.
+#   # vpc_id = aws_vpc.usbank_vpc.id
+#   name = var.elbsgname
+#  # ingress_rules = var.elb_ingress_rules
+# }
 #####################################################################################
 ####  Build the Mysql Security Group
 ###
 #####################################################################################
 module "mysql_security_group" {
   source  = "../terraform-aws-security-group/modules/mysql/"
-  vpc_id = aws_vpc.usbank_vpc[0].id
+   vpc_id = aws_vpc.usbank_vpc[0].id
   name = var.dbname
  # ingress_rules = var.mysql_ingress_rules
 }
@@ -124,7 +125,7 @@ module "mysql_security_group" {
 
 module "app_security_group" {
   source  = "../terraform-aws-security-group/modules/https-443/"
-  vpc_id = aws_vpc.usbank_vpc[0].id
+   vpc_id = aws_vpc.usbank_vpc[0].id
   name = var.appname
  # ingress_rules = var.appserv_ingress_rules
 }

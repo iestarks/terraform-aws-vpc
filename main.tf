@@ -56,7 +56,6 @@ resource "aws_vpc_ipv4_cidr_block_association" "this" {
 
 resource "aws_default_security_group" "this" {
   count = var.create_vpc && var.manage_default_security_group ? 1 : 0
- name = var.dfname
   vpc_id = aws_vpc.usbank_vpc[0].id
 
   dynamic "ingress" {
@@ -106,14 +105,14 @@ module "elb_security_group" {
   source  = "../terraform-aws-security-group/modules/http-80/"
   vpc_id = aws_vpc.usbank_vpc[0].id
   name = var.elbsgname
-  ingress_rules = var.ingress_rules
+  elb_ingress_rules = var.elb_ingress_rules
 }
 
 module "mysql_security_group" {
   source  = "../terraform-aws-security-group/modules/mysql/"
   vpc_id = aws_vpc.usbank_vpc[0].id
   name = var.dbname
-  ingress_rules = var.ingress_rules
+  mysql_ingress_rules = var.mysql_ingress_rules
 }
 
 

@@ -1,4 +1,4 @@
-ingress_rules = [
+mysql_ingress_rules = [
         {
           from_port   = 3306
           to_port     = 3306

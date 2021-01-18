@@ -10,11 +10,6 @@ variable "name" {
   default     = "bankus_east-1-vpc"
 }
 
-variable "dfname" {
-  description = "Name to be used on all the resources as identifier"
-  type        = string
-  default     = "bankus_default"
-}
 
 
 variable "dbname" {
@@ -2257,15 +2252,51 @@ variable "elasticache_dedicated_network_acl" {
   default     = false
 }
 
-variable "ingress_rules" {
-    type = list(object({
-      from_port   = number
-      to_port     = number
-      protocol    = string
-      cidr_blocks  = string
-      description = string
-    }))
+# variable "elb_ingress_rules" {
+#     type = list(object({
+#       from_port   = number
+#       to_port     = number
+#       protocol    = string
+#       cidr_blocks  = string
+#       description = string
+#     }))
+# }
+
+variable "elb_ingress_rules" {
+  description = "ELB ingress rules"
+  type        = list(map(string))
+
+  default = [
+    {
+      rule_number = 80
+      rule_action = "allow"
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      cidr_block  = "10.60.0.0/16"
+    },
+  ]
 }
+
+
+variable "mysql_ingress_rules" {
+  description = "mysql ingress rules"
+  type        = list(map(string))
+
+  default = [
+    {
+      rule_number = 30
+      rule_action = "allow"
+      from_port   = 3306
+      to_port     = 3306
+      protocol    = "tcp"
+      cidr_block  = "10.60.0.0/16"
+    },
+  ]
+}
+
+
+
 
 variable "elbsgname" {
   description = "ELB Security Group Name"
@@ -2524,7 +2555,7 @@ variable "manage_default_security_group" {
 variable "default_security_group_name" {
   description = "Name to be used on the default security group"
   type        = string
-  default     = "default"
+  default     = "default-sg"
 }
 
 variable "default_security_group_ingress" {

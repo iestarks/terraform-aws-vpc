@@ -4,6 +4,11 @@ variable "create_vpc" {
   default     = true
 }
 
+variable "vpcname" {
+  description = "Name to be used on all the resources as identifier"
+  type        = string
+  default     = "bankus_east-1-vpc"
+}
 
 
 
@@ -2261,15 +2266,7 @@ variable "elasticache_dedicated_network_acl" {
   default     = false
 }
 
-# variable "elb_ingress_rules" {
-#     type = list(object({
-#       from_port   = number
-#       to_port     = number
-#       protocol    = string
-#       cidr_blocks  = string
-#       description = string
-#     }))
-# }
+
 
 variable "elb_ingress_rules" {
   description = "ELB ingress rules"
@@ -2286,6 +2283,18 @@ variable "elb_ingress_rules" {
     },
   ]
 }
+
+# variable "elb_ingress_rules" {
+#     type = list(object({
+#       from_port   = number
+#       to_port     = number
+#       protocol    = string
+#       cidr_blocks  = string
+#       description = string
+#       rule_number = number
+#       rule_action = string
+#     }))
+# }
 
 
 
@@ -2643,8 +2652,8 @@ variable "aws_flow_logs" {
 
 # variable "vpc_id" {
 #   description = "The VPC ID"
-#   type        = string
-# }
+# #   type        = string
+#  }
 
 variable "flow_log_destination_arn" {
   description = "The ARN of the CloudWatch log group or S3 bucket where VPC Flow Logs will be pushed. If this ARN is a S3 bucket the appropriate permissions need to be set on that bucket's policy. When create_flow_log_cloudwatch_log_group is set to false this argument must be provided."

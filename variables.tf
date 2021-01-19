@@ -1987,7 +1987,7 @@ variable "public_subnet_tags" {
 variable "private_subnet_tags" {
   description = "Additional tags for the private subnets"
   type        = map(string)
-  default     = {"10.60.1.0/24"="az1-pri-subnet-1","10.60.3.0/24"="az2-pri-subnet-3"}
+  default     = {}
 }
 
 variable "public_route_table_tags" {

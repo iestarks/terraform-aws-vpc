@@ -23,7 +23,7 @@ variable "name" {
 variable "dbname" {
   description = "DB name to be used on all the resources as identifier"
   type        = string
-  default     = "usbank-mysql"
+  default     = "usbank_mysql"
 }
 
 variable "appname" {

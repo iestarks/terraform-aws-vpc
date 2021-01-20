@@ -174,19 +174,19 @@ variable "elasticache_subnet_suffix" {
 variable "public_subnets" {
   description = "A list of public subnets inside the VPC"
   type        = list(string)
-  default     = ["10.60.0.0/24"]
+  default     = ["10.60.0.0/24","10.60.10.0/24"]
 }
 
 variable "private_subnets" {
   description = "A list of private subnets inside the VPC"
   type        = list(string)
-  default     = ["10.60.1.0/24","10.60.3.0/24"]
+  default     = ["10.60.2.0/24","10.60.30.0/24"]
 }
 
 variable "database_subnets" {
   description = "A list of database subnets"
   type        = list(string)
-  default     = ["10.60.2.0/24","10.60.4.0/24"]
+  default     = ["10.60.4.0/24","10.60.50.0/24"]
 }
 
 variable "redshift_subnets" {

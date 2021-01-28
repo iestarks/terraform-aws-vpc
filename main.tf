@@ -30,10 +30,8 @@ locals {
 #####################################################################################
 module "mysql_security_group" {
   source  = "../terraform-aws-security-group/modules/mysql/"
-   #vpc_id = aws_vpc.usbank_vpc[0].id
   vpc_id = local.vpc_id
   name = var.dbname
- # ingress_rules = var.mysql_ingress_rules
 }
 #####################################################################################
 ####  Build the App Server Security Group
@@ -42,10 +40,8 @@ module "mysql_security_group" {
 
 module "app_security_group" {
   source  = "../terraform-aws-security-group/modules/https-443/"
-    #vpc_id = aws_vpc.usbank_vpc[0].id
   vpc_id = local.vpc_id
   name = var.appname
- # ingress_rules = var.appserv_ingress_rules
 }
 
 #####################################################################################
@@ -58,7 +54,6 @@ module "elb_security_group" {
    #vpc_id = aws_vpc.usbank_vpc[0].id
   vpc_id = local.vpc_id
   name = var.elbsgname
- # ingress_rules = var.appserv_ingress_rules
 }
 
 ####################################
